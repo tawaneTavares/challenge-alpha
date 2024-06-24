@@ -1,7 +1,8 @@
 package com.tcot.starwars.domain.usecase.getcategories
 
 import com.tcot.starwars.common.Resource
-import com.tcot.starwars.data.remote.dto.CategoriesDto
+import com.tcot.starwars.domain.model.Category
+import com.tcot.starwars.domain.model.toCategoryList
 import com.tcot.starwars.domain.repository.CategoriesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,11 +15,11 @@ class GetCategoriesUseCase
     constructor(
         private val repository: CategoriesRepository,
     ) {
-        operator fun invoke(): Flow<Resource<CategoriesDto>> =
+        operator fun invoke(): Flow<Resource<List<Category>>> =
             flow {
                 try {
                     emit(Resource.Loading())
-                    val categories = repository.getCategories()
+                    val categories = repository.getCategories().toCategoryList()
                     emit(Resource.Success(categories))
                 } catch (e: HttpException) {
                     emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))

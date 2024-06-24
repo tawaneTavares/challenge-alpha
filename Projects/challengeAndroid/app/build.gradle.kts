@@ -28,6 +28,7 @@ android {
 
         debug {
             buildConfigField("String", "BASE_URL", "\"https://swapi.dev/\"")
+            buildConfigField("String", "BASE_IMG_URL", "\"https://starwars-visualguide.com/assets/img/\"")
         }
 
         release {
@@ -37,6 +38,7 @@ android {
                 "proguard-rules.pro",
             )
             buildConfigField("String", "BASE_URL", "\"https://swapi.dev/\"")
+            buildConfigField("String", "BASE_IMG_URL", "\"https://starwars-visualguide.com/assets/img/\"")
         }
     }
     compileOptions {

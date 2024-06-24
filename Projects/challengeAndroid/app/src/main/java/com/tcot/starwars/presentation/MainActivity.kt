@@ -1,4 +1,4 @@
-package com.tcot.starwars
+package com.tcot.starwars.presentation
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
@@ -11,7 +11,8 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.tcot.starwars.presentation.viewModels.MainViewModel
+import com.tcot.starwars.R
+import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val INITIAL_ANIMATION_VALUE = 0.4f
@@ -20,7 +21,7 @@ private const val ANIMATION_DURATION = 500L
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<CategoriesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     private fun animateSplash() {
         installSplashScreen().apply {
             setKeepOnScreenCondition {
-                !viewModel.isReady.value
+                viewModel.state.value.isLoading
             }
             setOnExitAnimationListener { screen ->
                 val zoomX =
