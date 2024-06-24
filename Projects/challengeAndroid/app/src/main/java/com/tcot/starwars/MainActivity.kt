@@ -11,11 +11,14 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.tcot.starwars.presentation.viewModels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val INITIAL_ANIMATION_VALUE = 0.4f
 private const val FINAL_ANIMATION_VALUE = 0.0f
 private const val ANIMATION_DURATION = 500L
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
 

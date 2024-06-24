@@ -5,11 +5,14 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "com.tcot.starwars"
     compileSdk = 34
+
+    buildFeatures.buildConfig = true
 
     defaultConfig {
         applicationId = "com.tcot.starwars"
@@ -22,12 +25,18 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://swapi.dev/\"")
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            buildConfigField("String", "BASE_URL", "\"https://swapi.dev/\"")
         }
     }
     compileOptions {
@@ -72,6 +81,7 @@ dependencies {
     implementation(libs.paging)
     implementation(libs.coil)
     implementation(libs.splash)
+    implementation(libs.androidx.navigation)
 
     // Viewmodel and Livedata
     implementation(libs.androidx.lifecycle)
@@ -84,4 +94,9 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines)
     implementation(libs.coroutines.android)
+
+    // hilt
+    implementation(libs.androidx.hilt)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 }
