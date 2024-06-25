@@ -4,15 +4,20 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.tcot.starwars.R
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
+import com.tcot.starwars.presentation.categories.components.CategoriesList
+import com.tcot.starwars.presentation.theme.AnimatedSplashScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val INITIAL_ANIMATION_VALUE = 0.4f
@@ -29,11 +34,25 @@ class MainActivity : AppCompatActivity() {
         animateSplash()
 
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setContent {
+            AnimatedSplashScreenTheme {
+                Surface(color = MaterialTheme.colorScheme.background) {
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = Screen.CategoryListScreen.route) {
+                        composable(
+                            route = Screen.CategoryListScreen.route,
+                        ) {
+                            CategoriesList(navController = navController)
+                        }
+                        // TODO: add later to next screen
+//                        composable(
+//                            route = Screen.CategoryInfoScreen.route + "/{url}"
+//                        ) {
+//                            CategoryInfoScreen()
+//                        }
+                    }
+                }
+            }
         }
     }
 

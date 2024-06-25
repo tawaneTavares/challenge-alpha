@@ -13,12 +13,11 @@ data class Category(
     val url: String,
 )
 
-fun CategoriesDto.toCategoryList(): List<Category> {
-    return listOf(
+fun CategoriesDto.toCategoryList(): List<Category> =
+    listOf(
         Category(type = PEOPLE, url = people),
         Category(type = STAR_SHIPS, url = starships),
     )
-}
 
 fun Category.getUrlImage(): String? {
     if (type.isEmpty()) return null

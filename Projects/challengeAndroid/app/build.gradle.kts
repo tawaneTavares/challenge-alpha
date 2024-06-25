@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -13,6 +14,7 @@ android {
     compileSdk = 34
 
     buildFeatures.buildConfig = true
+    buildFeatures.compose = true
 
     defaultConfig {
         applicationId = "com.tcot.starwars"
@@ -57,6 +59,7 @@ tasks.getByPath("preBuild").dependsOn("ktlintFormat")
 ktlint {
     android = true
     ignoreFailures = false
+    version = "0.49.1"
     reporters {
         reporter(ReporterType.PLAIN)
         reporter(ReporterType.CHECKSTYLE)
@@ -84,6 +87,7 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.splash)
     implementation(libs.androidx.navigation)
+    implementation(libs.androidx.compose)
 
     // Viewmodel and Livedata
     implementation(libs.androidx.lifecycle)

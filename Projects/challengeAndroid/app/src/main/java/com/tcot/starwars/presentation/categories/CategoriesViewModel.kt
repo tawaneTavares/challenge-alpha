@@ -13,25 +13,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoriesViewModel
-    @Inject
-    constructor(private val getCategoriesUseCase: GetCategoriesUseCase) :
-    ViewModel() {
-        private val _state = mutableStateOf(CategoriesListState())
-        val state: State<CategoriesListState> = _state
+@Inject
+constructor(
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+) : ViewModel() {
+    private val _state = mutableStateOf(CategoriesListState())
+    val state: State<CategoriesListState> = _state
 
-        init {
-            getCategories()
-        }
+    init {
+        getCategories()
+    }
 
-        private fun getCategories() {
-            getCategoriesUseCase().onEach { result ->
+    private fun getCategories() {
+        getCategoriesUseCase()
+            .onEach { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value =
                             CategoriesListState(
                                 categories = result.data ?: emptyList(),
                             )
-                        _state.value = CategoriesListState(isLoading = false)
                     }
 
                     is Resource.Error -> {
@@ -46,5 +47,5 @@ class CategoriesViewModel
                     }
                 }
             }.launchIn(viewModelScope)
-        }
     }
+}

@@ -21,11 +21,14 @@ object NetworkModule {
     @Singleton
     fun providesRetrofit(): StarWarsApi {
         val moshi =
-            Moshi.Builder()
+            Moshi
+                .Builder()
                 .add(KotlinJsonAdapterFactory())
                 .build()
 
-        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
+        return Retrofit
+            .Builder()
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(StarWarsApi::class.java)
@@ -33,7 +36,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesCategoryRepository(retrofit: StarWarsApi): CategoriesRepository {
-        return CategoriesRepositoryImpl(retrofit)
-    }
+    fun providesCategoryRepository(retrofit: StarWarsApi): CategoriesRepository = CategoriesRepositoryImpl(retrofit)
 }

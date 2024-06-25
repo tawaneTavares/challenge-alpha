@@ -6,11 +6,9 @@ import com.tcot.starwars.domain.repository.CategoriesRepository
 import javax.inject.Inject
 
 class CategoriesRepositoryImpl
-    @Inject
-    constructor(
-        private val api: StarWarsApi,
-    ) : CategoriesRepository {
-        override suspend fun getCategories(): CategoriesDto {
-            return api.getCategories()
-        }
-    }
+@Inject
+constructor(
+    private val api: StarWarsApi,
+) : CategoriesRepository {
+    override suspend fun getCategories(): CategoriesDto = api.getCategories()
+}
