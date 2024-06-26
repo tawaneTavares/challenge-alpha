@@ -84,6 +84,7 @@ dependencies {
 
     // Screen
     implementation(libs.paging)
+    implementation(libs.paging.compose)
     implementation(libs.coil)
     implementation(libs.splash)
     implementation(libs.androidx.navigation)
@@ -101,8 +102,13 @@ dependencies {
     implementation(libs.coroutines)
     implementation(libs.coroutines.android)
 
-    // hilt
+    // Hilt
     implementation(libs.androidx.hilt)
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    // Room
+    implementation(libs.androidx.room)
+    implementation(libs.androidx.room.paging)
+    ksp(libs.androidx.room.compiler)
 }
