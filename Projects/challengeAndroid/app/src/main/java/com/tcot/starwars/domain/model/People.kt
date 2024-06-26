@@ -13,7 +13,7 @@ data class People(
     val skinColor: String,
     val homeWorld: String,
     val url: String,
-    val id: Int
+    val id: Int,
 )
 
 fun People.getUrlImage(): String? {

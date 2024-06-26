@@ -14,7 +14,7 @@ data class PeopleEntity(
     val homeWorld: String,
     val url: String,
     @PrimaryKey
-    val id: Int
+    val id: Int,
 )
 
 fun PeopleEntity.toPeople(): People {
@@ -26,6 +26,6 @@ fun PeopleEntity.toPeople(): People {
         skinColor = skinColor,
         homeWorld = homeWorld,
         url = url,
-        id = id
+        id = id,
     )
 }

@@ -20,7 +20,7 @@ data class PeopleDto(
     val species: List<String>?,
     val starships: List<String>?,
     val url: String?,
-    val vehicles: List<String>?
+    val vehicles: List<String>?,
 )
 
 fun PeopleDto.toPeopleEntity(): PeopleEntity {
@@ -32,6 +32,6 @@ fun PeopleDto.toPeopleEntity(): PeopleEntity {
         skinColor = skin_color ?: "",
         homeWorld = homeworld ?: "",
         url = url ?: "",
-        id = url?.substringAfter(SPLIT_PEOPLE_URL)?.substringBefore('/')?.toInt() ?: 0
+        id = url?.substringAfter(SPLIT_PEOPLE_URL)?.substringBefore('/')?.toInt() ?: 0,
     )
 }
