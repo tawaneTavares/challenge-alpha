@@ -8,9 +8,11 @@ import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tcot.starwars.BuildConfig
-import com.tcot.starwars.data.local.PeopleDatabase
 import com.tcot.starwars.data.local.PersonEntity
+import com.tcot.starwars.data.local.PlanetEntity
+import com.tcot.starwars.data.local.StarWarsDatabase
 import com.tcot.starwars.data.remote.PeopleRemoteMediator
+import com.tcot.starwars.data.remote.PlanetRemoteMediator
 import com.tcot.starwars.data.remote.StarWarsApi
 import com.tcot.starwars.data.repository.CategoriesRepositoryImpl
 import com.tcot.starwars.domain.repository.CategoriesRepository
@@ -22,6 +24,8 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
+
+private const val DEFAULT_PAGE_SIZE = 10
 
 @OptIn(ExperimentalPagingApi::class)
 @Module
@@ -50,25 +54,40 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesPeopleRepository(@ApplicationContext context: Context): PeopleDatabase {
+    fun providesPeopleRepository(@ApplicationContext context: Context): StarWarsDatabase {
         return Room.databaseBuilder(
             context,
-            PeopleDatabase::class.java,
+            StarWarsDatabase::class.java,
             "people.db",
         ).build()
     }
 
     @Provides
     @Singleton
-    fun providePeoplePager(peopleDb: PeopleDatabase, api: StarWarsApi): Pager<Int, PersonEntity> {
+    fun providePeoplePager(starWarsDb: StarWarsDatabase, api: StarWarsApi): Pager<Int, PersonEntity> {
         return Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = DEFAULT_PAGE_SIZE),
             remoteMediator = PeopleRemoteMediator(
-                peopleDb = peopleDb,
+                starWarsDb = starWarsDb,
                 api = api,
             ),
             pagingSourceFactory = {
-                peopleDb.peopleDao.pagingSource()
+                starWarsDb.peopleDao.pagingSource()
+            },
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun providePlanetPager(starWarsDb: StarWarsDatabase, api: StarWarsApi): Pager<Int, PlanetEntity> {
+        return Pager(
+            config = PagingConfig(pageSize = DEFAULT_PAGE_SIZE),
+            remoteMediator = PlanetRemoteMediator(
+                starWarsDb = starWarsDb,
+                api = api,
+            ),
+            pagingSourceFactory = {
+                starWarsDb.planetDao.pagingSource()
             },
         )
     }

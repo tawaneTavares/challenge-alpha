@@ -5,21 +5,21 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.tcot.starwars.data.local.PersonEntity
+import com.tcot.starwars.data.local.PlanetEntity
 import com.tcot.starwars.data.local.StarWarsDatabase
-import com.tcot.starwars.data.remote.dto.toPeopleEntity
-import okio.IOException
+import com.tcot.starwars.data.remote.dto.toPlanetEntity
 import retrofit2.HttpException
+import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
-class PeopleRemoteMediator(
+class PlanetRemoteMediator(
     private val starWarsDb: StarWarsDatabase,
     private val api: StarWarsApi,
-) : RemoteMediator<Int, PersonEntity>() {
+) : RemoteMediator<Int, PlanetEntity>() {
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, PersonEntity>,
+        state: PagingState<Int, PlanetEntity>,
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
@@ -37,20 +37,20 @@ class PeopleRemoteMediator(
                 }
             }
 
-            val people = api.getPeopleList(
+            val planet = api.getPlanetList(
                 loadKey,
             )
 
             starWarsDb.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    starWarsDb.peopleDao.clearAll()
+                    starWarsDb.planetDao.clearAll()
                 }
-                val peopleEntities = people.results.map { it.toPeopleEntity() }
-                starWarsDb.peopleDao.upsertAll(peopleEntities)
+                val planetEntities = planet.results.map { it.toPlanetEntity() }
+                starWarsDb.planetDao.upsertAll(planetEntities)
             }
 
             MediatorResult.Success(
-                endOfPaginationReached = people.results.size < state.config.pageSize,
+                endOfPaginationReached = planet.results.size < state.config.pageSize,
             )
         } catch (e: IOException) {
             MediatorResult.Error(e)

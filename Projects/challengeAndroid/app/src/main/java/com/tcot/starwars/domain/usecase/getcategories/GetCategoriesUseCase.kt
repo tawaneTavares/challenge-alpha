@@ -1,8 +1,8 @@
 package com.tcot.starwars.domain.usecase.getcategories
 
 import com.tcot.starwars.common.Resource
+import com.tcot.starwars.data.remote.dto.toCategoryList
 import com.tcot.starwars.domain.model.Category
-import com.tcot.starwars.domain.model.toCategoryList
 import com.tcot.starwars.domain.repository.CategoriesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
