@@ -12,11 +12,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
+import com.tcot.starwars.presentation.people.PeopleViewModel
+import com.tcot.starwars.presentation.people.components.PeopleList
 import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,11 +49,13 @@ class MainActivity : AppCompatActivity() {
                             CategoriesList(navController = navController)
                         }
                         // TODO: add later to next screen
-//                        composable(
-//                            route = Screen.CategoryInfoScreen.route + "/{url}"
-//                        ) {
-//                            CategoryInfoScreen()
-//                        }
+                        composable(
+                            route = Screen.CategoryInfoScreen.route, // + "/{url}",
+                        ) {
+                            val viewModel = hiltViewModel<PeopleViewModel>()
+                            val people = viewModel.peoplePagingFlow.collectAsLazyPagingItems()
+                            PeopleList(people = people)
+                        }
                     }
                 }
             }

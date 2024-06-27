@@ -9,7 +9,6 @@ data class Person(
     val name: String,
     val height: String,
     val mass: String,
-    val hairColor: String,
     val skinColor: String,
     val url: String,
     val id: Int,

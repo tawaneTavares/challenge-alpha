@@ -9,7 +9,6 @@ data class PersonEntity(
     val name: String,
     val height: String,
     val mass: String,
-    val hairColor: String,
     val skinColor: String,
     val url: String,
     @PrimaryKey
@@ -21,7 +20,6 @@ fun PersonEntity.toPerson(): Person {
         name = name,
         height = height,
         mass = mass,
-        hairColor = hairColor,
         skinColor = skinColor,
         url = url,
         id = id,

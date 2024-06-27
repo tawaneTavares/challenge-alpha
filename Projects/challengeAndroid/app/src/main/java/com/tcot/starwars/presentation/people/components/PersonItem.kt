@@ -68,11 +68,6 @@ fun PersonItem(
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "Hair Color: ${person.hairColor}",
-                    color = Color.LightGray,
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
                     text = "Skin Color: ${person.skinColor}",
                     color = Color.LightGray,
                 )
@@ -90,7 +85,6 @@ fun PersonItemPreview() {
                 "Anakin Skywalker",
                 "188",
                 "84",
-                "blond",
                 "fair",
                 "https://swapi.dev/api/people/11/",
                 11,

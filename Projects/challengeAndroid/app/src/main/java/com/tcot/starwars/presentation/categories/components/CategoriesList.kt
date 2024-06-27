@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.tcot.starwars.domain.model.Category
 import com.tcot.starwars.domain.model.getUrlImage
+import com.tcot.starwars.presentation.Screen
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
 
 @Composable
@@ -51,10 +52,10 @@ fun CategoriesList(
             contentPadding = PaddingValues(8.dp),
             verticalArrangement = Arrangement.SpaceAround,
         ) {
-            items(state.categories) {
-                CategoryItem(category = it, onClick = {
+            items(state.categories) { category ->
+                CategoryItem(category = category, onClick = {
                     // TODO: add later to next screen
-//                    navController.navigate(Screen.CategoryInfoScreen.route + "/${it.url}")
+                    navController.navigate(Screen.CategoryInfoScreen.route) // + "/${category.url}")
                 })
             }
         }
