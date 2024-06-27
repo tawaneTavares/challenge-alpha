@@ -1,9 +1,8 @@
 package com.tcot.starwars.data.remote.dto
 
+import com.tcot.starwars.common.Constants.PEOPLE
+import com.tcot.starwars.common.Constants.PLANETS
 import com.tcot.starwars.domain.model.Category
-
-private const val PEOPLE = "character"
-private const val PLANETS = "planets"
 
 data class CategoriesDto(
     val films: String,

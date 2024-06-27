@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.tcot.starwars.common.Constants.PEOPLE
+import com.tcot.starwars.common.Constants.PLANETS
 import com.tcot.starwars.domain.model.Category
 import com.tcot.starwars.domain.model.getUrlImage
 import com.tcot.starwars.presentation.Screen
@@ -54,8 +56,14 @@ fun CategoriesList(
         ) {
             items(state.categories) { category ->
                 CategoryItem(category = category, onClick = {
-                    // TODO: add later to next screen
-                    navController.navigate(Screen.CategoryInfoScreen.route) // + "/${category.url}")
+                    when (category.type) {
+                        PEOPLE -> {
+                            navController.navigate(Screen.CategoryPeopleScreen.route)
+                        }
+                        PLANETS -> {
+                            navController.navigate(Screen.CategoryPlanetScreen.route)
+                        }
+                    }
                 })
             }
         }

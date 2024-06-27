@@ -21,6 +21,8 @@ import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
 import com.tcot.starwars.presentation.people.PeopleViewModel
 import com.tcot.starwars.presentation.people.components.PeopleList
+import com.tcot.starwars.presentation.planets.PlanetsViewModel
+import com.tcot.starwars.presentation.planets.components.PlanetsList
 import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,13 +50,19 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             CategoriesList(navController = navController)
                         }
-                        // TODO: add later to next screen
                         composable(
-                            route = Screen.CategoryInfoScreen.route, // + "/{url}",
+                            route = Screen.CategoryPeopleScreen.route,
                         ) {
                             val viewModel = hiltViewModel<PeopleViewModel>()
                             val people = viewModel.peoplePagingFlow.collectAsLazyPagingItems()
                             PeopleList(people = people)
+                        }
+                        composable(
+                            route = Screen.CategoryPlanetScreen.route,
+                        ) {
+                            val viewModel = hiltViewModel<PlanetsViewModel>()
+                            val planets = viewModel.planetPagingFlow.collectAsLazyPagingItems()
+                            PlanetsList(planets = planets)
                         }
                     }
                 }

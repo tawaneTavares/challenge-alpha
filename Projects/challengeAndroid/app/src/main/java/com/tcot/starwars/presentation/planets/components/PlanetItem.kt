@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.people.components
+package com.tcot.starwars.presentation.planets.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,17 +17,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.tcot.starwars.R
-import com.tcot.starwars.domain.model.Person
+import com.tcot.starwars.domain.model.Planet
 import com.tcot.starwars.domain.model.getUrlImage
-import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 
 @Composable
-fun PersonItem(
-    person: Person,
+fun PlanetItem(
+    planet: Planet,
     modifier: Modifier,
 ) {
     Card(
@@ -40,8 +38,8 @@ fun PersonItem(
                 .padding(16.dp),
         ) {
             AsyncImage(
-                model = person.getUrlImage(),
-                contentDescription = person.name,
+                model = planet.getUrlImage(),
+                contentDescription = planet.name,
                 error = painterResource(id = R.drawable.ic_image_not_found),
                 modifier = Modifier
                     .weight(1f)
@@ -55,44 +53,26 @@ fun PersonItem(
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = person.name,
+                    text = planet.name,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Height: ${person.height}",
+                    text = "Climate: ${planet.climate}",
                     color = Color.LightGray,
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "Mass: ${person.mass}",
+                    text = "Population: ${planet.population}",
                     color = Color.LightGray,
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "Skin Color: ${person.skinColor}",
+                    text = "Terrain: ${planet.terrain}",
                     color = Color.LightGray,
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun PersonItemPreview() {
-    StarWarsScreenTheme {
-        PersonItem(
-            person = Person(
-                "Anakin Skywalker",
-                "188",
-                "84",
-                "fair",
-                "https://swapi.dev/api/people/11/",
-                11,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-        )
     }
 }
