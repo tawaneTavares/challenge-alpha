@@ -1,10 +1,10 @@
 package com.tcot.starwars.data.remote.dto
 
-import com.tcot.starwars.data.local.PeopleEntity
+import com.tcot.starwars.data.local.PersonEntity
 
 private const val SPLIT_PEOPLE_URL = "people/"
 
-data class PeopleDto(
+data class PersonDto(
     val birth_year: String?,
     val created: String?,
     val edited: String?,
@@ -23,14 +23,13 @@ data class PeopleDto(
     val vehicles: List<String>?,
 )
 
-fun PeopleDto.toPeopleEntity(): PeopleEntity {
-    return PeopleEntity(
+fun PersonDto.toPeopleEntity(): PersonEntity {
+    return PersonEntity(
         name = name ?: "",
         height = height ?: "",
         mass = mass ?: "",
         hairColor = hair_color ?: "",
         skinColor = skin_color ?: "",
-        homeWorld = homeworld ?: "",
         url = url ?: "",
         id = url?.substringAfter(SPLIT_PEOPLE_URL)?.substringBefore('/')?.toInt() ?: 0,
     )

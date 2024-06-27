@@ -17,7 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
-import com.tcot.starwars.presentation.theme.AnimatedSplashScreenTheme
+import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val INITIAL_ANIMATION_VALUE = 0.4f
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
         setContent {
-            AnimatedSplashScreenTheme {
+            StarWarsScreenTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = Screen.CategoryListScreen.route) {

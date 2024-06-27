@@ -4,17 +4,17 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.tcot.starwars.data.local.PeopleEntity
+import com.tcot.starwars.data.local.PersonEntity
 
 @Dao
 interface PeopleDao {
 
     @Upsert
-    suspend fun upsertAll(peoples: List<PeopleEntity>)
+    suspend fun upsertAll(people: List<PersonEntity>)
 
-    @Query("SELECT * FROM peopleentity")
-    fun pagingSource(): PagingSource<Int, PeopleEntity>
+    @Query("SELECT * FROM personentity")
+    fun pagingSource(): PagingSource<Int, PersonEntity>
 
-    @Query("DELETE FROM peopleentity")
+    @Query("DELETE FROM personentity")
     suspend fun clearAll()
 }

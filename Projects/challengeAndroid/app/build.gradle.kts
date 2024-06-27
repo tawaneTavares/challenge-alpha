@@ -89,6 +89,8 @@ dependencies {
     implementation(libs.splash)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.compose)
+    implementation(libs.androidx.compose.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
 
     // Viewmodel and Livedata
     implementation(libs.androidx.lifecycle)

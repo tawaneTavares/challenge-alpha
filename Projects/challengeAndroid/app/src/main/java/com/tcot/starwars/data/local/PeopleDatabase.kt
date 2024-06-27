@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.tcot.starwars.data.local.dao.PeopleDao
 
 @Database(
-    entities = [PeopleEntity::class],
+    entities = [PersonEntity::class],
     version = 1,
 )
 abstract class PeopleDatabase : RoomDatabase() {

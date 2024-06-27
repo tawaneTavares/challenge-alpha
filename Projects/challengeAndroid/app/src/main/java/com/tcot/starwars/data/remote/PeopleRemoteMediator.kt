@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.tcot.starwars.data.local.PeopleDatabase
-import com.tcot.starwars.data.local.PeopleEntity
+import com.tcot.starwars.data.local.PersonEntity
 import com.tcot.starwars.data.remote.dto.toPeopleEntity
 import okio.IOException
 import retrofit2.HttpException
@@ -15,11 +15,11 @@ import retrofit2.HttpException
 class PeopleRemoteMediator(
     private val peopleDb: PeopleDatabase,
     private val api: StarWarsApi,
-) : RemoteMediator<Int, PeopleEntity>() {
+) : RemoteMediator<Int, PersonEntity>() {
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, PeopleEntity>,
+        state: PagingState<Int, PersonEntity>,
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
@@ -37,7 +37,7 @@ class PeopleRemoteMediator(
                 }
             }
 
-            val peoples = api.getPeopleList(
+            val people = api.getPeopleList(
                 loadKey,
             )
 
@@ -45,12 +45,12 @@ class PeopleRemoteMediator(
                 if (loadType == LoadType.REFRESH) {
                     peopleDb.peopleDao.clearAll()
                 }
-                val peopleEntities = peoples.results.map { it.toPeopleEntity() }
+                val peopleEntities = people.results.map { it.toPeopleEntity() }
                 peopleDb.peopleDao.upsertAll(peopleEntities)
             }
 
             MediatorResult.Success(
-                endOfPaginationReached = peoples.results.size < state.config.pageSize,
+                endOfPaginationReached = people.results.size < state.config.pageSize,
             )
         } catch (e: IOException) {
             MediatorResult.Error(e)
