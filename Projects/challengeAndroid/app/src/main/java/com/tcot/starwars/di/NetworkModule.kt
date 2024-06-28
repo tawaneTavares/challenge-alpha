@@ -50,15 +50,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesCategoryRepository(retrofit: StarWarsApi): CategoriesRepository = CategoriesRepositoryImpl(retrofit)
+    fun providesCategoryRepository(retrofit: StarWarsApi, starWarsDb: StarWarsDatabase): CategoriesRepository = CategoriesRepositoryImpl(retrofit, starWarsDb)
 
     @Provides
     @Singleton
-    fun providesPeopleRepository(@ApplicationContext context: Context): StarWarsDatabase {
+    fun provideStarWarsDatabase(@ApplicationContext context: Context): StarWarsDatabase {
         return Room.databaseBuilder(
             context,
             StarWarsDatabase::class.java,
-            "people.db",
+            "starwars.db",
         ).build()
     }
 
