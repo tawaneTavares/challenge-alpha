@@ -15,6 +15,9 @@ interface PlanetDao {
     @Query("SELECT * FROM planetentity")
     fun pagingSource(): PagingSource<Int, PlanetEntity>
 
+    @Query("SELECT * FROM planetentity WHERE id = :planetId")
+    fun getPlanetById(planetId: Int): PlanetEntity
+
     @Query("DELETE FROM planetentity")
     suspend fun clearAll()
 }

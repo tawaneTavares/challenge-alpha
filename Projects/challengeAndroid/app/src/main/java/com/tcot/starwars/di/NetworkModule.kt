@@ -15,7 +15,9 @@ import com.tcot.starwars.data.remote.PeopleRemoteMediator
 import com.tcot.starwars.data.remote.PlanetRemoteMediator
 import com.tcot.starwars.data.remote.StarWarsApi
 import com.tcot.starwars.data.repository.CategoriesRepositoryImpl
+import com.tcot.starwars.data.repository.PlanetRepositoryImpl
 import com.tcot.starwars.domain.repository.CategoriesRepository
+import com.tcot.starwars.domain.repository.PlanetRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -91,4 +93,8 @@ object NetworkModule {
             },
         )
     }
+
+    @Provides
+    @Singleton
+    fun providePlanetDb(starWarsDb: StarWarsDatabase): PlanetRepository = PlanetRepositoryImpl(starWarsDb)
 }

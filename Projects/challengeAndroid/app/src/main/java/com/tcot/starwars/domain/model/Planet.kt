@@ -18,3 +18,5 @@ fun Planet.getUrlImage(): String? {
     if (url.isEmpty()) return null
     return "${BuildConfig.BASE_IMG_URL}$PLANET_URL$id$JPG_URL"
 }
+
+fun getEmptyPlanet(): Planet = Planet("", "", "", "", "", 0)

@@ -1,5 +1,6 @@
 package com.tcot.starwars.presentation.planets.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -27,9 +28,12 @@ import com.tcot.starwars.domain.model.getUrlImage
 fun PlanetItem(
     planet: Planet,
     modifier: Modifier,
+    onClick: (Planet) -> Unit,
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.clickable {
+            onClick(planet)
+        },
     ) {
         Row(
             modifier = Modifier

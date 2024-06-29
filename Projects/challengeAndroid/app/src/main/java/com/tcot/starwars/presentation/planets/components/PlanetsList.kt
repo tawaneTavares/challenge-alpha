@@ -13,14 +13,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.tcot.starwars.domain.model.Planet
+import com.tcot.starwars.presentation.Screen
 
 @Composable
 fun PlanetsList(
+    navController: NavController,
     planets: LazyPagingItems<Planet>,
 ) {
     val context = LocalContext.current
@@ -49,7 +52,9 @@ fun PlanetsList(
                     val planet = planets[index]
 
                     if (planet != null) {
-                        PlanetItem(planet = planet, modifier = Modifier.fillMaxWidth())
+                        PlanetItem(planet = planet, modifier = Modifier.fillMaxWidth(), onClick = {
+                            navController.navigate(Screen.PlanetDetailScreen.route + "/${planet.id}")
+                        })
                     }
                 }
 

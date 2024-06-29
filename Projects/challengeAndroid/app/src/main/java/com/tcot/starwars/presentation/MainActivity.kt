@@ -10,18 +10,22 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.remember
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
 import com.tcot.starwars.presentation.people.PeopleViewModel
 import com.tcot.starwars.presentation.people.components.PeopleList
 import com.tcot.starwars.presentation.planets.PlanetsViewModel
+import com.tcot.starwars.presentation.planets.components.PlanetDetailScreen
 import com.tcot.starwars.presentation.planets.components.PlanetsList
 import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +33,8 @@ import dagger.hilt.android.AndroidEntryPoint
 private const val INITIAL_ANIMATION_VALUE = 0.4f
 private const val FINAL_ANIMATION_VALUE = 0.0f
 private const val ANIMATION_DURATION = 500L
+
+private const val PLANET_ARG = "planetId"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -62,7 +68,23 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             val viewModel = hiltViewModel<PlanetsViewModel>()
                             val planets = viewModel.planetPagingFlow.collectAsLazyPagingItems()
-                            PlanetsList(planets = planets)
+                            PlanetsList(navController = navController, planets = planets)
+                        }
+
+                        composable(
+                            route = Screen.PlanetDetailScreen.route + "/{planetId}",
+                            arguments = listOf(
+                                navArgument(PLANET_ARG) {
+                                    type = NavType.IntType
+                                },
+                            ),
+                        ) {
+                            val planetId = remember {
+                                it.arguments?.getInt(PLANET_ARG) ?: 0
+                            }
+                            val viewModel = hiltViewModel<PlanetsViewModel>()
+                            viewModel.getPlanetDetail(planetId)
+                            PlanetDetailScreen(navController = navController)
                         }
                     }
                 }
