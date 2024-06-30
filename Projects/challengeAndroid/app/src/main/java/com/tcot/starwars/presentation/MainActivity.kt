@@ -8,9 +8,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContent {
             StarWarsScreenTheme {
-                Surface(color = MaterialTheme.colorScheme.background) {
+                Surface(color = Color.Black) {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,

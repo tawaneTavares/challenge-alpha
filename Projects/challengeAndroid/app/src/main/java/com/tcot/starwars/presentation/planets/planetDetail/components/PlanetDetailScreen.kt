@@ -32,6 +32,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -39,8 +41,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -48,7 +50,6 @@ import com.tcot.starwars.R
 import com.tcot.starwars.domain.model.Planet
 import com.tcot.starwars.domain.model.getUrlImage
 import com.tcot.starwars.presentation.planets.planetdetail.PlanetDetailViewModel
-import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 
 @Composable
 fun PlanetDetailScreen(
@@ -60,8 +61,7 @@ fun PlanetDetailScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .absolutePadding(top = 60.dp),
+            .absolutePadding(top = 45.dp),
     ) {
         if (state.error.isNotBlank()) {
             Text(
@@ -72,11 +72,11 @@ fun PlanetDetailScreen(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .align(Alignment.Center),
+                    .align(Center),
             )
         }
         if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            CircularProgressIndicator(modifier = Modifier.align(Center))
         }
 
         if (state.planet.url.isNotBlank()) {
@@ -94,7 +94,7 @@ fun PlanetDetailScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    top = 170.dp / 2f,
+                    top = 190.dp / 2f,
                     start = 16.dp,
                     end = 16.dp,
                     bottom = 16.dp,
@@ -118,7 +118,7 @@ fun PlanetDetailScreen(
                 error = painterResource(id = R.drawable.ic_image_not_found),
                 modifier = Modifier
                     .height(150.dp)
-                    .offset(y = 20.dp)
+                    .offset(y = 30.dp)
                     .clip(shape = CircleShape)
                     .border(2.dp, Color.White, CircleShape),
             )
@@ -173,9 +173,9 @@ fun DetailInfoSection(
     modifier: Modifier,
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = CenterHorizontally,
         modifier = modifier
-            .fillMaxHeight()
+            .fillMaxHeight(0.5f)
             .offset(y = 100.dp),
     ) {
         Text(
@@ -200,12 +200,51 @@ fun DetailInfoSection(
             text = "terrain: ${planet.terrain}",
             color = Color.LightGray,
         )
+
+        // TODO finish detail screen
+//        Row {
+//            UniqueInfo(
+//                planet = planet,
+//                modifier = Modifier,
+//            )
+//        }
     }
 }
 
-@Preview
 @Composable
-fun PlanetItemPreview() {
-    StarWarsScreenTheme {
+fun UniqueInfo(
+    planet: Planet,
+    modifier: Modifier,
+) {
+    Box(
+        contentAlignment = Center,
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color(0x51D10000))
+            .padding(16.dp),
+    ) {
+        Column(
+            horizontalAlignment = CenterHorizontally,
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Favorite,
+                contentDescription = planet.name,
+                modifier = Modifier
+                    .size(36.dp)
+                    .align(CenterHorizontally),
+            )
+            Text(
+                text = "Terrain",
+                fontSize = 15.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+            )
+            Text(
+                text = planet.terrain,
+                fontSize = 15.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+            )
+        }
     }
 }

@@ -97,7 +97,7 @@ fun CategoryItem(
             .clickable {
                 onClick(category)
             }
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(10.dp))
             .paint(
                 painter = rememberAsyncImagePainter(category.getUrlImage()),
                 contentScale = ContentScale.Crop,
