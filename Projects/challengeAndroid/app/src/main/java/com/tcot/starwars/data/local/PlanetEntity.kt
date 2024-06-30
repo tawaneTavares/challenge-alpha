@@ -13,6 +13,7 @@ data class PlanetEntity(
     val url: String,
     @PrimaryKey
     val id: Int,
+    val isFavored: Boolean,
 )
 
 fun PlanetEntity.toPlanet(): Planet {
@@ -23,5 +24,6 @@ fun PlanetEntity.toPlanet(): Planet {
         terrain = terrain,
         url = url,
         id = id,
+        isFavored = isFavored,
     )
 }

@@ -31,5 +31,6 @@ fun PersonDto.toPeopleEntity(): PersonEntity {
         skinColor = skin_color ?: "",
         url = url ?: "",
         id = url?.substringAfter(SPLIT_PEOPLE_URL)?.substringBefore('/')?.toInt() ?: 0,
+        isFavored = false,
     )
 }

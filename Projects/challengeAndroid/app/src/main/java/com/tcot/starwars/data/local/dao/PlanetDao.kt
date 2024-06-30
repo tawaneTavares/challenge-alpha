@@ -2,21 +2,25 @@ package com.tcot.starwars.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Upsert
 import com.tcot.starwars.data.local.PlanetEntity
 
 @Dao
 interface PlanetDao {
 
-    @Upsert
-    suspend fun upsertAll(people: List<PlanetEntity>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(people: List<PlanetEntity>)
 
     @Query("SELECT * FROM planetentity")
     fun pagingSource(): PagingSource<Int, PlanetEntity>
 
     @Query("SELECT * FROM planetentity WHERE id = :planetId")
     fun getPlanetById(planetId: Int): PlanetEntity
+
+    @Query("UPDATE planetentity SET isFavored = NOT isFavored WHERE id = :planetId")
+    fun updatePlanetFavored(planetId: Int)
 
     @Query("DELETE FROM planetentity")
     suspend fun clearAll()

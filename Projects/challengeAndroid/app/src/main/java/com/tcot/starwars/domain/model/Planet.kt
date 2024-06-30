@@ -12,6 +12,7 @@ data class Planet(
     val terrain: String,
     val url: String,
     val id: Int,
+    val isFavored: Boolean,
 )
 
 fun Planet.getUrlImage(): String? {
@@ -19,4 +20,4 @@ fun Planet.getUrlImage(): String? {
     return "${BuildConfig.BASE_IMG_URL}$PLANET_URL$id$JPG_URL"
 }
 
-fun getEmptyPlanet(): Planet = Planet("", "", "", "", "", 0)
+fun getEmptyPlanet(): Planet = Planet("", "", "", "", "", 0, false)

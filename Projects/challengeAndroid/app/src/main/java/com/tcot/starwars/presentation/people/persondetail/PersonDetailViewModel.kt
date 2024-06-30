@@ -7,14 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.tcot.starwars.common.Resource
 import com.tcot.starwars.domain.model.getEmptyPerson
 import com.tcot.starwars.domain.usecase.GetPersonFromDbUseCase
+import com.tcot.starwars.domain.usecase.UpdatePersonFavoredUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PersonDetailViewModel @Inject constructor(
     private val getPersonFromDbUseCase: GetPersonFromDbUseCase,
+    private val updatePersonFavoredUseCase: UpdatePersonFavoredUseCase,
 ) : ViewModel() {
 
     private val _state = mutableStateOf(PersonDetailState())
@@ -44,7 +47,7 @@ class PersonDetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun favoritePerson(personId: Int) {
-        // TODO add function to favorite
+    fun favoritePerson(personId: Int) = viewModelScope.launch {
+        updatePersonFavoredUseCase(personId)
     }
 }

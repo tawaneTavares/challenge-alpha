@@ -42,11 +42,8 @@ class PlanetRemoteMediator(
             )
 
             starWarsDb.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    starWarsDb.planetDao.clearAll()
-                }
                 val planetEntities = planet.results.map { it.toPlanetEntity() }
-                starWarsDb.planetDao.upsertAll(planetEntities)
+                starWarsDb.planetDao.insertAll(planetEntities)
             }
 
             MediatorResult.Success(

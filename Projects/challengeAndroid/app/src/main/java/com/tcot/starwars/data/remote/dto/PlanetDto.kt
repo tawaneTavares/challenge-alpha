@@ -29,5 +29,6 @@ fun PlanetDto.toPlanetEntity(): PlanetEntity {
         terrain = terrain ?: "",
         url = url ?: "",
         id = url?.substringAfter(SPLIT_PLANET_URL)?.substringBefore('/')?.toInt() ?: 0,
+        isFavored = false,
     )
 }

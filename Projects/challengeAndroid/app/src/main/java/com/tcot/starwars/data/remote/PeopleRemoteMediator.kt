@@ -42,11 +42,8 @@ class PeopleRemoteMediator(
             )
 
             starWarsDb.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    starWarsDb.peopleDao.clearAll()
-                }
                 val peopleEntities = people.results.map { it.toPeopleEntity() }
-                starWarsDb.peopleDao.upsertAll(peopleEntities)
+                starWarsDb.peopleDao.insertAll(peopleEntities)
             }
 
             MediatorResult.Success(

@@ -27,6 +27,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -75,13 +79,15 @@ fun PlanetDetailScreen(
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
 
-        DetailTopSection(
-            navController,
-            true, // TODO add later state.planet.isFavorite
-            onFavoriteClick = {
-                viewModel.favoritePlanet(state.planet.id)
-            },
-        )
+        if (state.planet.url.isNotBlank()) {
+            DetailTopSection(
+                navController,
+                state.planet.isFavored,
+                onFavoriteClick = {
+                    viewModel.favoritePlanet(state.planet.id)
+                },
+            )
+        }
 
         DetailInfoSection(
             planet = state.planet,
@@ -143,13 +149,18 @@ fun DetailTopSection(
                     navController.popBackStack()
                 },
         )
+
+        var favoredChange by remember {
+            mutableStateOf(isFavorite)
+        }
         Icon(
-            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+            imageVector = if (favoredChange) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier
                 .size(36.dp)
                 .clickable {
+                    favoredChange = !favoredChange
                     onFavoriteClick()
                 },
         )
