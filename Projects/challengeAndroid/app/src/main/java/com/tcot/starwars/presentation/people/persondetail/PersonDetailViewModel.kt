@@ -1,50 +1,50 @@
-package com.tcot.starwars.presentation.planets.planetdetail
+package com.tcot.starwars.presentation.people.persondetail
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tcot.starwars.common.Resource
-import com.tcot.starwars.domain.model.getEmptyPlanet
-import com.tcot.starwars.domain.usecase.GetPlanetFromDbUseCase
+import com.tcot.starwars.domain.model.getEmptyPerson
+import com.tcot.starwars.domain.usecase.GetPersonFromDbUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class PlanetDetailViewModel @Inject constructor(
-    private val getPlanetFromDbUseCase: GetPlanetFromDbUseCase,
+class PersonDetailViewModel @Inject constructor(
+    private val getPersonFromDbUseCase: GetPersonFromDbUseCase,
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(PlanetDetailState())
-    val state: State<PlanetDetailState> = _state
+    private val _state = mutableStateOf(PersonDetailState())
+    val state: State<PersonDetailState> = _state
 
-    fun getPlanetDetail(planetId: Int) {
-        getPlanetFromDbUseCase(planetId).onEach { result ->
+    fun getPersonDetail(personId: Int) {
+        getPersonFromDbUseCase(personId).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value =
-                        PlanetDetailState(
-                            planet = result.data ?: getEmptyPlanet(),
+                        PersonDetailState(
+                            person = result.data ?: getEmptyPerson(),
                         )
                 }
 
                 is Resource.Error -> {
                     _state.value =
-                        PlanetDetailState(
+                        PersonDetailState(
                             error = result.message ?: "An unexpected error occurred",
                         )
                 }
 
                 is Resource.Loading -> {
-                    _state.value = PlanetDetailState(isLoading = true)
+                    _state.value = PersonDetailState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)
     }
 
-    fun favoritePlanet(planetId: Int) {
+    fun favoritePerson(personId: Int) {
         // TODO add function to favorite
     }
 }

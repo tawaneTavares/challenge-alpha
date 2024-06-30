@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.planets.planetList
+package com.tcot.starwars.presentation.planets.planetlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

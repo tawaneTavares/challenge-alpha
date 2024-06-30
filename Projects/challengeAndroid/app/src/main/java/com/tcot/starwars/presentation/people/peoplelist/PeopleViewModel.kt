@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.people
+package com.tcot.starwars.presentation.people.peoplelist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

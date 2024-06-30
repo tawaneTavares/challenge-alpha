@@ -1,5 +1,6 @@
-package com.tcot.starwars.presentation.people.components
+package com.tcot.starwars.presentation.people.peoplelist.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -17,21 +18,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.tcot.starwars.R
 import com.tcot.starwars.domain.model.Person
 import com.tcot.starwars.domain.model.getUrlImage
-import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 
 @Composable
 fun PersonItem(
     person: Person,
     modifier: Modifier,
+    onClick: (Person) -> Unit,
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.clickable {
+            onClick(person)
+        },
     ) {
         Row(
             modifier = Modifier
@@ -76,23 +78,5 @@ fun PersonItem(
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun PersonItemPreview() {
-    StarWarsScreenTheme {
-        PersonItem(
-            person = Person(
-                "Anakin Skywalker",
-                "188",
-                "84",
-                "fair",
-                "https://swapi.dev/api/people/11/",
-                11,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-        )
     }
 }

@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.planets.planetList.components
+package com.tcot.starwars.presentation.planets.planetlist.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

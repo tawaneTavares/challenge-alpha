@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.planets.planetdetail.components
+package com.tcot.starwars.presentation.people.persondetail.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,21 +35,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.tcot.starwars.R
-import com.tcot.starwars.domain.model.Planet
+import com.tcot.starwars.domain.model.Person
 import com.tcot.starwars.domain.model.getUrlImage
-import com.tcot.starwars.presentation.planets.planetdetail.PlanetDetailViewModel
-import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
+import com.tcot.starwars.presentation.people.persondetail.PersonDetailViewModel
 
 @Composable
-fun PlanetDetailScreen(
+fun PersonDetailScreen(
     navController: NavController,
-    viewModel: PlanetDetailViewModel = hiltViewModel(),
+    viewModel: PersonDetailViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.value
 
@@ -77,14 +75,14 @@ fun PlanetDetailScreen(
 
         DetailTopSection(
             navController,
-            true, // TODO add later state.planet.isFavorite
+            true, // TODO add later state.person.isFavorite
             onFavoriteClick = {
-                viewModel.favoritePlanet(state.planet.id)
+                viewModel.favoritePerson(state.person.id)
             },
         )
 
         DetailInfoSection(
-            planet = state.planet,
+            person = state.person,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -107,8 +105,8 @@ fun PlanetDetailScreen(
                 .fillMaxSize(),
         ) {
             AsyncImage(
-                model = state.planet.getUrlImage(),
-                contentDescription = state.planet.name,
+                model = state.person.getUrlImage(),
+                contentDescription = state.person.name,
                 error = painterResource(id = R.drawable.ic_image_not_found),
                 modifier = Modifier
                     .height(150.dp)
@@ -158,7 +156,7 @@ fun DetailTopSection(
 
 @Composable
 fun DetailInfoSection(
-    planet: Planet,
+    person: Person,
     modifier: Modifier,
 ) {
     Column(
@@ -168,7 +166,7 @@ fun DetailInfoSection(
             .offset(y = 100.dp),
     ) {
         Text(
-            text = planet.name,
+            text = person.name,
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -176,25 +174,18 @@ fun DetailInfoSection(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "climate: ${planet.climate}",
+            text = "Height: ${person.height}",
             color = Color.LightGray,
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "population: ${planet.population}",
+            text = "Mass: ${person.mass}",
             color = Color.LightGray,
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "terrain: ${planet.terrain}",
+            text = "Skin Color: ${person.skinColor}",
             color = Color.LightGray,
         )
-    }
-}
-
-@Preview
-@Composable
-fun PlanetItemPreview() {
-    StarWarsScreenTheme {
     }
 }

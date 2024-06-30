@@ -22,12 +22,14 @@ import androidx.navigation.navArgument
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
-import com.tcot.starwars.presentation.people.PeopleViewModel
-import com.tcot.starwars.presentation.people.components.PeopleList
-import com.tcot.starwars.presentation.planets.planetDetail.PlanetDetailViewModel
-import com.tcot.starwars.presentation.planets.planetDetail.components.PlanetDetailScreen
-import com.tcot.starwars.presentation.planets.planetList.PlanetsViewModel
-import com.tcot.starwars.presentation.planets.planetList.components.PlanetsList
+import com.tcot.starwars.presentation.people.peoplelist.PeopleViewModel
+import com.tcot.starwars.presentation.people.peoplelist.components.PeopleList
+import com.tcot.starwars.presentation.people.persondetail.PersonDetailViewModel
+import com.tcot.starwars.presentation.people.persondetail.components.PersonDetailScreen
+import com.tcot.starwars.presentation.planets.planetdetail.PlanetDetailViewModel
+import com.tcot.starwars.presentation.planets.planetdetail.components.PlanetDetailScreen
+import com.tcot.starwars.presentation.planets.planetlist.PlanetsViewModel
+import com.tcot.starwars.presentation.planets.planetlist.components.PlanetsList
 import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,6 +38,7 @@ private const val FINAL_ANIMATION_VALUE = 0.0f
 private const val ANIMATION_DURATION = 500L
 
 private const val PLANET_ARG = "planetId"
+private const val PERSON_ARG = "personId"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             val viewModel = hiltViewModel<PeopleViewModel>()
                             val people = viewModel.peoplePagingFlow.collectAsLazyPagingItems()
-                            PeopleList(people = people)
+                            PeopleList(navController = navController, people = people)
                         }
                         composable(
                             route = Screen.CategoryPlanetScreen.route,
@@ -89,6 +92,22 @@ class MainActivity : AppCompatActivity() {
                             val viewModel = hiltViewModel<PlanetDetailViewModel>()
                             viewModel.getPlanetDetail(planetId)
                             PlanetDetailScreen(navController = navController)
+                        }
+
+                        composable(
+                            route = Screen.PersonDetailScreen.route + "/{personId}",
+                            arguments = listOf(
+                                navArgument(PERSON_ARG) {
+                                    type = NavType.IntType
+                                },
+                            ),
+                        ) {
+                            val personId = remember {
+                                it.arguments?.getInt(PERSON_ARG) ?: 0
+                            }
+                            val viewModel = hiltViewModel<PersonDetailViewModel>()
+                            viewModel.getPersonDetail(personId)
+                            PersonDetailScreen(navController = navController)
                         }
                     }
                 }

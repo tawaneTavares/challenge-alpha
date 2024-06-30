@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.people.components
+package com.tcot.starwars.presentation.people.peoplelist.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,14 +14,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.tcot.starwars.domain.model.Person
+import com.tcot.starwars.presentation.Screen
 
 @Composable
 fun PeopleList(
+    navController: NavController,
     people: LazyPagingItems<Person>,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -55,7 +58,9 @@ fun PeopleList(
                 val person = people[index]
 
                 if (person != null) {
-                    PersonItem(person = person, modifier = Modifier.fillMaxWidth())
+                    PersonItem(person = person, modifier = Modifier.fillMaxWidth(), onClick = {
+                        navController.navigate(Screen.PersonDetailScreen.route + "/${person.id}")
+                    })
                 }
             }
 

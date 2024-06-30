@@ -18,3 +18,5 @@ fun Person.getUrlImage(): String? {
     if (url.isEmpty()) return null
     return "${BuildConfig.BASE_IMG_URL}$PEOPLE_URL$id$JPG_URL"
 }
+
+fun getEmptyPerson(): Person = Person("", "", "", "", "", 0)

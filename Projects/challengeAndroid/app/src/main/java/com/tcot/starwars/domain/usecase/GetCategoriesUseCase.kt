@@ -1,4 +1,4 @@
-package com.tcot.starwars.domain.usecase.getcategories
+package com.tcot.starwars.domain.usecase
 
 import com.tcot.starwars.common.Resource
 import com.tcot.starwars.data.local.toCategory
