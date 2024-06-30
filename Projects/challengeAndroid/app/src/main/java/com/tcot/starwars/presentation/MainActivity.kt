@@ -24,9 +24,10 @@ import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
 import com.tcot.starwars.presentation.people.PeopleViewModel
 import com.tcot.starwars.presentation.people.components.PeopleList
-import com.tcot.starwars.presentation.planets.PlanetsViewModel
-import com.tcot.starwars.presentation.planets.components.PlanetDetailScreen
-import com.tcot.starwars.presentation.planets.components.PlanetsList
+import com.tcot.starwars.presentation.planets.planetDetail.PlanetDetailViewModel
+import com.tcot.starwars.presentation.planets.planetDetail.components.PlanetDetailScreen
+import com.tcot.starwars.presentation.planets.planetList.PlanetsViewModel
+import com.tcot.starwars.presentation.planets.planetList.components.PlanetsList
 import com.tcot.starwars.presentation.theme.StarWarsScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,7 +51,10 @@ class MainActivity : AppCompatActivity() {
             StarWarsScreenTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Screen.CategoryListScreen.route) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.CategoryListScreen.route,
+                    ) {
                         composable(
                             route = Screen.CategoryListScreen.route,
                         ) {
@@ -82,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                             val planetId = remember {
                                 it.arguments?.getInt(PLANET_ARG) ?: 0
                             }
-                            val viewModel = hiltViewModel<PlanetsViewModel>()
+                            val viewModel = hiltViewModel<PlanetDetailViewModel>()
                             viewModel.getPlanetDetail(planetId)
                             PlanetDetailScreen(navController = navController)
                         }

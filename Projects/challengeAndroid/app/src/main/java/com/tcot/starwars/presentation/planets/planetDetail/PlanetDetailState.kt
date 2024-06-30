@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.planets
+package com.tcot.starwars.presentation.planets.planetDetail
 
 import com.tcot.starwars.domain.model.Planet
 import com.tcot.starwars.domain.model.getEmptyPlanet

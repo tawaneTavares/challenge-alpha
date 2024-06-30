@@ -1,4 +1,4 @@
-package com.tcot.starwars.presentation.people.components
+package com.tcot.starwars.presentation.planets.planetList.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,20 +14,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
-import com.tcot.starwars.domain.model.Person
+import com.tcot.starwars.domain.model.Planet
+import com.tcot.starwars.presentation.Screen
 
 @Composable
-fun PeopleList(
-    people: LazyPagingItems<Person>,
+fun PlanetsList(
+    navController: NavController,
+    planets: LazyPagingItems<Planet>,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
-        if (people.loadState.refresh is LoadState.Error) {
+        if (planets.loadState.refresh is LoadState.Error) {
             Text(
-                text = "Error: " + (people.loadState.refresh as LoadState.Error).error.message,
+                text = "Error: " + (planets.loadState.refresh as LoadState.Error).error.message,
                 color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Center,
                 modifier =
@@ -37,7 +40,7 @@ fun PeopleList(
                     .align(Alignment.Center),
             )
         }
-        if (people.loadState.refresh is LoadState.Loading) {
+        if (planets.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center),
             )
@@ -48,19 +51,21 @@ fun PeopleList(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             items(
-                people.itemCount,
-                people.itemKey { it.id },
-                people.itemContentType { "contentType" },
+                planets.itemCount,
+                planets.itemKey { it.id },
+                planets.itemContentType { "contentType" },
             ) { index ->
-                val person = people[index]
+                val planet = planets[index]
 
-                if (person != null) {
-                    PersonItem(person = person, modifier = Modifier.fillMaxWidth())
+                if (planet != null) {
+                    PlanetItem(planet = planet, modifier = Modifier.fillMaxWidth(), onClick = {
+                        navController.navigate(Screen.PlanetDetailScreen.route + "/${planet.id}")
+                    })
                 }
             }
 
             item {
-                if (people.loadState.append is LoadState.Loading) {
+                if (planets.loadState.append is LoadState.Loading) {
                     CircularProgressIndicator()
                 }
             }
