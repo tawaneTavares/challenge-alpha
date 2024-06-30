@@ -15,9 +15,11 @@ import com.tcot.starwars.data.remote.PeopleRemoteMediator
 import com.tcot.starwars.data.remote.PlanetRemoteMediator
 import com.tcot.starwars.data.remote.StarWarsApi
 import com.tcot.starwars.data.repository.CategoriesRepositoryImpl
+import com.tcot.starwars.data.repository.LastViewsRepositoryImpl
 import com.tcot.starwars.data.repository.PeopleRepositoryImpl
 import com.tcot.starwars.data.repository.PlanetRepositoryImpl
 import com.tcot.starwars.domain.repository.CategoriesRepository
+import com.tcot.starwars.domain.repository.LastViewsRepository
 import com.tcot.starwars.domain.repository.PeopleRepository
 import com.tcot.starwars.domain.repository.PlanetRepository
 import dagger.Module
@@ -103,4 +105,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providePeopleDb(starWarsDb: StarWarsDatabase): PeopleRepository = PeopleRepositoryImpl(starWarsDb)
+
+    @Provides
+    @Singleton
+    fun provideLastViewsDb(starWarsDb: StarWarsDatabase): LastViewsRepository = LastViewsRepositoryImpl(starWarsDb)
 }

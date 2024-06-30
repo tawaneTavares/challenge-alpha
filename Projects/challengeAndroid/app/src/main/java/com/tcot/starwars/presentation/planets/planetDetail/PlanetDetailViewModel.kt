@@ -4,9 +4,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tcot.starwars.common.Constants.TYPE_PEOPLE
 import com.tcot.starwars.common.Resource
+import com.tcot.starwars.domain.model.LastView
 import com.tcot.starwars.domain.model.getEmptyPlanet
 import com.tcot.starwars.domain.usecase.GetPlanetFromDbUseCase
+import com.tcot.starwars.domain.usecase.UpdateLastViewUseCase
 import com.tcot.starwars.domain.usecase.UpdatePlanetFavoredUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -18,6 +21,7 @@ import javax.inject.Inject
 class PlanetDetailViewModel @Inject constructor(
     private val getPlanetFromDbUseCase: GetPlanetFromDbUseCase,
     private val updatePlanetFavoredUseCase: UpdatePlanetFavoredUseCase,
+    private val updateLastViewUseCase: UpdateLastViewUseCase,
 ) : ViewModel() {
 
     private val _state = mutableStateOf(PlanetDetailState())
@@ -27,9 +31,11 @@ class PlanetDetailViewModel @Inject constructor(
         getPlanetFromDbUseCase(planetId).onEach { result ->
             when (result) {
                 is Resource.Success -> {
+                    val planet = result.data ?: getEmptyPlanet()
+                    updateLastViewUseCase(LastView(planet.name, TYPE_PEOPLE, planetId))
                     _state.value =
                         PlanetDetailState(
-                            planet = result.data ?: getEmptyPlanet(),
+                            planet = planet,
                         )
                 }
 
