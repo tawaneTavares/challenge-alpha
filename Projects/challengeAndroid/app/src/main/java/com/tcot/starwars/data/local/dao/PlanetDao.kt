@@ -19,9 +19,6 @@ interface PlanetDao {
     @Query("SELECT * FROM planetentity WHERE id = :planetId")
     fun getPlanetById(planetId: Int): PlanetEntity
 
-    @Query("UPDATE planetentity SET isFavored = NOT isFavored WHERE id = :planetId")
-    fun updatePlanetFavored(planetId: Int)
-
     @Query("DELETE FROM planetentity")
     suspend fun clearAll()
 }

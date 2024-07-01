@@ -19,9 +19,6 @@ interface PeopleDao {
     @Query("SELECT * FROM personentity WHERE id = :personId")
     fun getPersonById(personId: Int): PersonEntity
 
-    @Query("UPDATE personentity SET isFavored = NOT isFavored WHERE id = :personId")
-    fun updatePersonFavored(personId: Int)
-
     @Query("DELETE FROM personentity")
     suspend fun clearAll()
 }

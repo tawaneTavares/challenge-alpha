@@ -15,10 +15,12 @@ import com.tcot.starwars.data.remote.PeopleRemoteMediator
 import com.tcot.starwars.data.remote.PlanetRemoteMediator
 import com.tcot.starwars.data.remote.StarWarsApi
 import com.tcot.starwars.data.repository.CategoriesRepositoryImpl
+import com.tcot.starwars.data.repository.FavoriteRepositoryImpl
 import com.tcot.starwars.data.repository.LastViewsRepositoryImpl
 import com.tcot.starwars.data.repository.PeopleRepositoryImpl
 import com.tcot.starwars.data.repository.PlanetRepositoryImpl
 import com.tcot.starwars.domain.repository.CategoriesRepository
+import com.tcot.starwars.domain.repository.FavoriteRepository
 import com.tcot.starwars.domain.repository.LastViewsRepository
 import com.tcot.starwars.domain.repository.PeopleRepository
 import com.tcot.starwars.domain.repository.PlanetRepository
@@ -109,4 +111,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideLastViewsDb(starWarsDb: StarWarsDatabase): LastViewsRepository = LastViewsRepositoryImpl(starWarsDb)
+
+    @Provides
+    @Singleton
+    fun provideFavoriteDb(starWarsDb: StarWarsDatabase): FavoriteRepository = FavoriteRepositoryImpl(starWarsDb)
 }

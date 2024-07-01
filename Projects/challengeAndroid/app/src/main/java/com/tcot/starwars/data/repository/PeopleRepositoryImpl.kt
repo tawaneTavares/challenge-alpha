@@ -13,8 +13,4 @@ constructor(
 
     override suspend fun getPersonFromDb(personId: Int): PersonEntity =
         db.peopleDao.getPersonById(personId)
-
-    override suspend fun updatePersonFavored(personId: Int) {
-        db.peopleDao.updatePersonFavored(personId)
-    }
 }

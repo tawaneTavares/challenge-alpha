@@ -12,7 +12,4 @@ constructor(
 ) : PlanetRepository {
 
     override suspend fun getPlanetFromDb(planetId: Int): PlanetEntity = db.planetDao.getPlanetById(planetId)
-    override suspend fun updatePlanetFavored(planetId: Int) {
-        db.planetDao.updatePlanetFavored(planetId)
-    }
 }

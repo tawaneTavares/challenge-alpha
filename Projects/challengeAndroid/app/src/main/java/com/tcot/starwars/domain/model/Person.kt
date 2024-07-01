@@ -12,7 +12,6 @@ data class Person(
     val skinColor: String,
     val url: String,
     val id: Int,
-    val isFavored: Boolean,
 )
 
 fun Person.getUrlImage(): String? {
@@ -20,4 +19,4 @@ fun Person.getUrlImage(): String? {
     return "${BuildConfig.BASE_IMG_URL}$PEOPLE_URL$id$JPG_URL"
 }
 
-fun getEmptyPerson(): Person = Person("", "", "", "", "", 0, false)
+fun getEmptyPerson(): Person = Person("", "", "", "", "", 0)

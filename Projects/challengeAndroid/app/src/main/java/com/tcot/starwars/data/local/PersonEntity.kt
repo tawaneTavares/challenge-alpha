@@ -13,7 +13,6 @@ data class PersonEntity(
     val url: String,
     @PrimaryKey
     val id: Int,
-    val isFavored: Boolean,
 )
 
 fun PersonEntity.toPerson(): Person {
@@ -24,6 +23,5 @@ fun PersonEntity.toPerson(): Person {
         skinColor = skinColor,
         url = url,
         id = id,
-        isFavored = isFavored,
     )
 }

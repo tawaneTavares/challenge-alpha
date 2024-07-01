@@ -56,6 +56,7 @@ fun PlanetDetailScreen(
     viewModel: PlanetDetailViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.value
+    val favorite = viewModel.checkFavorite.value
 
     Box(
         modifier = Modifier
@@ -78,12 +79,12 @@ fun PlanetDetailScreen(
             CircularProgressIndicator(modifier = Modifier.align(Center))
         }
 
-        if (state.planet.url.isNotBlank()) {
+        if (favorite.hasResponded) {
             DetailTopSection(
                 navController,
-                state.planet.isFavored,
+                favorite.isFavorite,
                 onFavoriteClick = {
-                    viewModel.favoritePlanet(state.planet.id)
+                    viewModel.favoritePlanet()
                 },
             )
         }

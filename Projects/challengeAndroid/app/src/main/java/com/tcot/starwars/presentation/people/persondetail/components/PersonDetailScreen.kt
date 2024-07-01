@@ -53,6 +53,7 @@ fun PersonDetailScreen(
     viewModel: PersonDetailViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.value
+    val favorite = viewModel.checkFavorite.value
 
     Box(
         modifier = Modifier
@@ -75,12 +76,12 @@ fun PersonDetailScreen(
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
 
-        if (state.person.url.isNotBlank()) {
+        if (favorite.hasResponded) {
             DetailTopSection(
                 navController,
-                state.person.isFavored,
+                favorite.isFavorite,
                 onFavoriteClick = {
-                    viewModel.favoritePerson(state.person.id)
+                    viewModel.favoritePerson()
                 },
             )
         }
