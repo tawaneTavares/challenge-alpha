@@ -47,7 +47,8 @@ fun CategoriesList(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .absolutePadding(top = 60.dp),
+            .background(Color.Black)
+            .absolutePadding(top = 150.dp),
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
