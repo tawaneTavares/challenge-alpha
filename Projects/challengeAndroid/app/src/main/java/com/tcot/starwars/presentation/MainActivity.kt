@@ -39,6 +39,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.tcot.starwars.R
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
+import com.tcot.starwars.presentation.favorites.FavoritesViewModel
+import com.tcot.starwars.presentation.favorites.components.FavoritesList
 import com.tcot.starwars.presentation.lastviews.LastViewsViewModel
 import com.tcot.starwars.presentation.lastviews.components.LastViewList
 import com.tcot.starwars.presentation.people.peoplelist.PeopleViewModel
@@ -150,7 +152,7 @@ fun MyBottomAppBar() {
                 IconButton(
                     onClick = {
                         selected.value = Icons.Default.Favorite
-                        navController.navigate(Screen.CategoryPeopleScreen.route) {
+                        navController.navigate(Screen.FavoritesScreen.route) {
                             popUpTo(0)
                         }
                     },
@@ -246,6 +248,14 @@ fun MyBottomAppBar() {
                 val viewModel = hiltViewModel<LastViewsViewModel>()
                 viewModel.getLastViews()
                 LastViewList(navController = navController, viewModel = viewModel)
+            }
+
+            composable(
+                route = Screen.FavoritesScreen.route,
+            ) {
+                val viewModel = hiltViewModel<FavoritesViewModel>()
+                viewModel.getFavorites()
+                FavoritesList(navController = navController, viewModel = viewModel)
             }
         }
     }

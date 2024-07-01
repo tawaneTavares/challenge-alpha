@@ -19,4 +19,4 @@ fun Planet.getUrlImage(): String? {
     return "${BuildConfig.BASE_IMG_URL}$PLANET_URL$id$JPG_URL"
 }
 
-fun getEmptyPlanet(): Planet = Planet("", "", "", "", "", 0, )
+fun getEmptyPlanet(): Planet = Planet("", "", "", "", "", 0)
