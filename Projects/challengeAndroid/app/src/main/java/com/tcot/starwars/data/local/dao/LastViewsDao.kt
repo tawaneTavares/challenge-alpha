@@ -11,6 +11,6 @@ interface LastViewsDao {
     @Upsert
     suspend fun upsert(lastViewsEntity: LastViewEntity)
 
-    @Query("SELECT * FROM lastViewEntity ORDER BY timestamp DESC")
+    @Query("SELECT * FROM lastViewEntity ORDER BY timestamp DESC LIMIT 12")
     fun getAll(): List<LastViewEntity>
 }
