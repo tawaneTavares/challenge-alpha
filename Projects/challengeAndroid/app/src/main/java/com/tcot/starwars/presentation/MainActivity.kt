@@ -39,6 +39,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.tcot.starwars.R
 import com.tcot.starwars.presentation.categories.CategoriesViewModel
 import com.tcot.starwars.presentation.categories.components.CategoriesList
+import com.tcot.starwars.presentation.lastviews.LastViewsViewModel
+import com.tcot.starwars.presentation.lastviews.components.LastViewList
 import com.tcot.starwars.presentation.people.peoplelist.PeopleViewModel
 import com.tcot.starwars.presentation.people.peoplelist.components.PeopleList
 import com.tcot.starwars.presentation.people.persondetail.PersonDetailViewModel
@@ -148,7 +150,7 @@ fun MyBottomAppBar() {
                 IconButton(
                     onClick = {
                         selected.value = Icons.Default.Favorite
-                        navController.navigate(Screen.CategoryListScreen.route) {
+                        navController.navigate(Screen.CategoryPeopleScreen.route) {
                             popUpTo(0)
                         }
                     },
@@ -165,7 +167,7 @@ fun MyBottomAppBar() {
                 IconButton(
                     onClick = {
                         selected.value = Icons.Default.Star
-                        navController.navigate(Screen.CategoryListScreen.route) {
+                        navController.navigate(Screen.LastViewScreen.route) {
                             popUpTo(0)
                         }
                     },
@@ -207,7 +209,7 @@ fun MyBottomAppBar() {
             }
 
             composable(
-                route = Screen.PlanetDetailScreen.route + "/{planetId}",
+                route = Screen.PlanetDetailScreen.route + "/{$PLANET_ARG}",
                 arguments = listOf(
                     navArgument(PLANET_ARG) {
                         type = NavType.IntType
@@ -223,7 +225,7 @@ fun MyBottomAppBar() {
             }
 
             composable(
-                route = Screen.PersonDetailScreen.route + "/{personId}",
+                route = Screen.PersonDetailScreen.route + "/{$PERSON_ARG}",
                 arguments = listOf(
                     navArgument(PERSON_ARG) {
                         type = NavType.IntType
@@ -236,6 +238,14 @@ fun MyBottomAppBar() {
                 val viewModel = hiltViewModel<PersonDetailViewModel>()
                 viewModel.getPersonDetail(personId)
                 PersonDetailScreen(navController = navController)
+            }
+
+            composable(
+                route = Screen.LastViewScreen.route,
+            ) {
+                val viewModel = hiltViewModel<LastViewsViewModel>()
+                viewModel.getLastViews()
+                LastViewList(navController = navController, viewModel = viewModel)
             }
         }
     }

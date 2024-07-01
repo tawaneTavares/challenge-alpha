@@ -6,6 +6,7 @@ data class LastView(
     val name: String,
     val type: String,
     val id: Int,
+    val imageUrl: String,
 )
 
 fun LastView.toLastViewEntity(): LastViewEntity = LastViewEntity(
@@ -13,4 +14,5 @@ fun LastView.toLastViewEntity(): LastViewEntity = LastViewEntity(
     type = type,
     timestamp = null,
     id = id,
+    imageUrl = imageUrl,
 )

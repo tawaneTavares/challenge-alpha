@@ -11,6 +11,7 @@ data class LastViewEntity(
     val type: String,
     var timestamp: Long?,
     val id: Int,
+    val imageUrl: String,
 )
 
 fun LastViewEntity.toLastView(): LastView {
@@ -18,5 +19,6 @@ fun LastViewEntity.toLastView(): LastView {
         name = name,
         type = type,
         id = id,
+        imageUrl = imageUrl,
     )
 }

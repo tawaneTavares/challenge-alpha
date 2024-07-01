@@ -101,7 +101,7 @@ fun CategoryItem(
                 painter = rememberAsyncImagePainter(category.getUrlImage()),
                 contentScale = ContentScale.Crop,
             )
-            .border(1.dp, Color(0xFFEEEEEE)),
+            .border(1.dp, Color(0xFFEEEEEE), shape = RoundedCornerShape(10.dp)),
     ) {
         Text(
             category.type,

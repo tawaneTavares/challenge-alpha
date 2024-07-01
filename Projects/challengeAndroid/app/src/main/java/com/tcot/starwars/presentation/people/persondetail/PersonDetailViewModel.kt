@@ -8,6 +8,7 @@ import com.tcot.starwars.common.Constants.TYPE_PEOPLE
 import com.tcot.starwars.common.Resource
 import com.tcot.starwars.domain.model.LastView
 import com.tcot.starwars.domain.model.getEmptyPerson
+import com.tcot.starwars.domain.model.getUrlImage
 import com.tcot.starwars.domain.usecase.GetPersonFromDbUseCase
 import com.tcot.starwars.domain.usecase.UpdateLastViewUseCase
 import com.tcot.starwars.domain.usecase.UpdatePersonFavoredUseCase
@@ -32,7 +33,7 @@ class PersonDetailViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     val person = result.data ?: getEmptyPerson()
-                    updateLastViewUseCase(LastView(person.name, TYPE_PEOPLE, personId))
+                    updateLastViewUseCase(LastView(person.name, TYPE_PEOPLE, personId, person.getUrlImage() ?: ""))
                     _state.value =
                         PersonDetailState(
                             person = person,

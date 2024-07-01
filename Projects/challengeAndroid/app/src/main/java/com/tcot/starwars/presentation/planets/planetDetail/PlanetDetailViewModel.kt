@@ -8,6 +8,7 @@ import com.tcot.starwars.common.Constants.TYPE_PEOPLE
 import com.tcot.starwars.common.Resource
 import com.tcot.starwars.domain.model.LastView
 import com.tcot.starwars.domain.model.getEmptyPlanet
+import com.tcot.starwars.domain.model.getUrlImage
 import com.tcot.starwars.domain.usecase.GetPlanetFromDbUseCase
 import com.tcot.starwars.domain.usecase.UpdateLastViewUseCase
 import com.tcot.starwars.domain.usecase.UpdatePlanetFavoredUseCase
@@ -32,7 +33,7 @@ class PlanetDetailViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     val planet = result.data ?: getEmptyPlanet()
-                    updateLastViewUseCase(LastView(planet.name, TYPE_PEOPLE, planetId))
+                    updateLastViewUseCase(LastView(planet.name, TYPE_PEOPLE, planetId, planet.getUrlImage() ?: ""))
                     _state.value =
                         PlanetDetailState(
                             planet = planet,
