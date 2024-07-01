@@ -27,6 +27,8 @@ fun PlanetDto.toPlanetEntity(): PlanetEntity {
         climate = climate ?: "",
         population = population ?: "",
         terrain = terrain ?: "",
+        gravity = gravity ?: "",
+        orbitalPeriod = orbital_period ?: "",
         url = url ?: "",
         id = url?.substringAfter(SPLIT_PLANET_URL)?.substringBefore('/')?.toInt() ?: 0,
     )

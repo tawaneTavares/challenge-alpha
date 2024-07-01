@@ -39,6 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -91,7 +92,7 @@ fun PersonDetailScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    top = 170.dp / 2f,
+                    top = 190.dp / 2f,
                     start = 16.dp,
                     end = 16.dp,
                     bottom = 16.dp,
@@ -115,7 +116,7 @@ fun PersonDetailScreen(
                 error = painterResource(id = R.drawable.ic_image_not_found),
                 modifier = Modifier
                     .height(150.dp)
-                    .offset(y = 20.dp)
+                    .offset(y = 30.dp)
                     .clip(shape = CircleShape)
                     .border(2.dp, Color.White, CircleShape),
             )
@@ -172,9 +173,10 @@ fun DetailInfoSection(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .fillMaxHeight()
+            .fillMaxHeight(0.5f)
             .offset(y = 100.dp),
     ) {
+        Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = person.name,
             style = MaterialTheme.typography.headlineLarge,
@@ -182,20 +184,35 @@ fun DetailInfoSection(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = "Height: ${person.height}",
-            color = Color.LightGray,
+            fontSize = 18.sp,
+            color = Color.DarkGray,
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "Mass: ${person.mass}",
-            color = Color.LightGray,
+            fontSize = 18.sp,
+            color = Color.DarkGray,
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "Skin Color: ${person.skinColor}",
-            color = Color.LightGray,
+            fontSize = 18.sp,
+            color = Color.DarkGray,
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            text = "Birth Year: ${person.birthYear}",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            text = "Gender: ${person.gender}",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
         )
     }
 }

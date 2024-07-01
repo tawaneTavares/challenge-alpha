@@ -10,6 +10,8 @@ data class Planet(
     val climate: String,
     val population: String,
     val terrain: String,
+    val orbitalPeriod: String,
+    val gravity: String,
     val url: String,
     val id: Int,
 )
@@ -19,4 +21,4 @@ fun Planet.getUrlImage(): String? {
     return "${BuildConfig.BASE_IMG_URL}$PLANET_URL$id$JPG_URL"
 }
 
-fun getEmptyPlanet(): Planet = Planet("", "", "", "", "", 0)
+fun getEmptyPlanet(): Planet = Planet("", "", "", "", "", "", "", 0)

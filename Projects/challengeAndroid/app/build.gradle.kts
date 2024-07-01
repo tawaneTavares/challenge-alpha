@@ -23,14 +23,18 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.tcot.starwars.AndroidJUnitRunner"
     }
 
     buildTypes {
 
         debug {
             buildConfigField("String", "BASE_URL", "\"https://swapi.dev/\"")
-            buildConfigField("String", "BASE_IMG_URL", "\"https://starwars-visualguide.com/assets/img/\"")
+            buildConfigField(
+                "String",
+                "BASE_IMG_URL",
+                "\"https://starwars-visualguide.com/assets/img/\"",
+            )
         }
 
         release {
@@ -40,7 +44,11 @@ android {
                 "proguard-rules.pro",
             )
             buildConfigField("String", "BASE_URL", "\"https://swapi.dev/\"")
-            buildConfigField("String", "BASE_IMG_URL", "\"https://starwars-visualguide.com/assets/img/\"")
+            buildConfigField(
+                "String",
+                "BASE_IMG_URL",
+                "\"https://starwars-visualguide.com/assets/img/\"",
+            )
         }
     }
     compileOptions {
@@ -50,8 +58,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    viewBinding.isEnabled = true
 }
 
 tasks.getByPath("preBuild").dependsOn("ktlintFormat")
@@ -78,8 +84,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
+    implementation(libs.androidx.ui.test.junit4.android)
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Screen
@@ -113,4 +118,14 @@ dependencies {
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
+
+    // Local unit tests
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.mockk)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }

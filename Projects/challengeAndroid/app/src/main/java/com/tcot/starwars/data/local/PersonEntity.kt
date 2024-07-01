@@ -10,6 +10,8 @@ data class PersonEntity(
     val height: String,
     val mass: String,
     val skinColor: String,
+    val birthYear: String,
+    val gender: String,
     val url: String,
     @PrimaryKey
     val id: Int,
@@ -21,6 +23,8 @@ fun PersonEntity.toPerson(): Person {
         height = height,
         mass = mass,
         skinColor = skinColor,
+        birthYear = birthYear,
+        gender = gender,
         url = url,
         id = id,
     )

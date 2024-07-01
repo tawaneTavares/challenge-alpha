@@ -29,6 +29,8 @@ fun PersonDto.toPeopleEntity(): PersonEntity {
         height = height ?: "",
         mass = mass ?: "",
         skinColor = skin_color ?: "",
+        birthYear = birth_year ?: "",
+        gender = gender ?: "",
         url = url ?: "",
         id = url?.substringAfter(SPLIT_PEOPLE_URL)?.substringBefore('/')?.toInt() ?: 0,
     )

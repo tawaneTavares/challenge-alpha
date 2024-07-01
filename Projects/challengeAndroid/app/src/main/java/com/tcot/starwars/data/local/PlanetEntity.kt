@@ -10,6 +10,8 @@ data class PlanetEntity(
     val climate: String,
     val population: String,
     val terrain: String,
+    val orbitalPeriod: String,
+    val gravity: String,
     val url: String,
     @PrimaryKey
     val id: Int,
@@ -21,6 +23,8 @@ fun PlanetEntity.toPlanet(): Planet {
         climate = climate,
         population = population,
         terrain = terrain,
+        gravity = gravity,
+        orbitalPeriod = orbitalPeriod,
         url = url,
         id = id,
     )

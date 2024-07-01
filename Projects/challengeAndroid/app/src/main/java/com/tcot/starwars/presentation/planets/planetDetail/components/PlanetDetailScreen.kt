@@ -155,7 +155,7 @@ fun DetailTopSection(
         }
         Icon(
             imageVector = if (favoredChange) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-            contentDescription = null,
+            contentDescription = "favorite",
             tint = Color.White,
             modifier = Modifier
                 .size(36.dp)
@@ -178,6 +178,7 @@ fun DetailInfoSection(
             .fillMaxHeight(0.5f)
             .offset(y = 100.dp),
     ) {
+        Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = planet.name,
             style = MaterialTheme.typography.headlineLarge,
@@ -185,66 +186,35 @@ fun DetailInfoSection(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Text(
-            text = "climate: ${planet.climate}",
-            color = Color.LightGray,
+            text = "Climate: ${planet.climate}",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
-            text = "population: ${planet.population}",
-            color = Color.LightGray,
+            text = "Population: ${planet.population}",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
-            text = "terrain: ${planet.terrain}",
-            color = Color.LightGray,
+            text = "Terrain: ${planet.terrain}",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
         )
-
-        // TODO finish detail screen
-//        Row {
-//            UniqueInfo(
-//                planet = planet,
-//                modifier = Modifier,
-//            )
-//        }
-    }
-}
-
-@Composable
-fun UniqueInfo(
-    planet: Planet,
-    modifier: Modifier,
-) {
-    Box(
-        contentAlignment = Center,
-        modifier = modifier
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(0x51D10000))
-            .padding(16.dp),
-    ) {
-        Column(
-            horizontalAlignment = CenterHorizontally,
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Favorite,
-                contentDescription = planet.name,
-                modifier = Modifier
-                    .size(36.dp)
-                    .align(CenterHorizontally),
-            )
-            Text(
-                text = "Terrain",
-                fontSize = 15.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                text = planet.terrain,
-                fontSize = 15.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-            )
-        }
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            text = "Gravity: ${planet.gravity}",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            text = "Orbital Period: ${planet.orbitalPeriod}",
+            fontSize = 18.sp,
+            color = Color.DarkGray,
+        )
     }
 }

@@ -10,6 +10,8 @@ data class Person(
     val height: String,
     val mass: String,
     val skinColor: String,
+    val birthYear: String,
+    val gender: String,
     val url: String,
     val id: Int,
 )
@@ -19,4 +21,4 @@ fun Person.getUrlImage(): String? {
     return "${BuildConfig.BASE_IMG_URL}$PEOPLE_URL$id$JPG_URL"
 }
 
-fun getEmptyPerson(): Person = Person("", "", "", "", "", 0)
+fun getEmptyPerson(): Person = Person("", "", "", "", "", "", "", 0)
