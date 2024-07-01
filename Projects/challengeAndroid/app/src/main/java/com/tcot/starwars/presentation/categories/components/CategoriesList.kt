@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -47,8 +46,7 @@ fun CategoriesList(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .absolutePadding(top = 150.dp),
+            .background(Color.Black),
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),

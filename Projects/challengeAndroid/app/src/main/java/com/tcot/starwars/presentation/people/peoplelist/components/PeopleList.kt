@@ -1,10 +1,10 @@
 package com.tcot.starwars.presentation.people.peoplelist.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,7 +38,7 @@ fun PeopleList(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .absolutePadding(top = 45.dp),
+            .background(Color.Black),
     ) {
         if (people.loadState.refresh is LoadState.Error) {
             Text(
